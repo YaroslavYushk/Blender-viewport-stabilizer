@@ -1,0 +1,15 @@
+schema_version = "1.0.0"
+
+id = "Viewport_stabilizer"
+version = "1.0.0"
+name = "Viewport stabilizer"
+tagline = "Stabilise 3d point on your screen. (Find the panel in: 3D View > N panel > View)"
+tags = ["3D View", "Tracking"]
+type = "add-on"
+blender_version_min = "4.2.0"
+
+maintainer = "Yaroslav Yushkevich"
+website = "https://github.com/YaroslavYushk/Blender-viewport-stabilizer"
+
+license = ["SPDX:GPL-3.0-or-later",]
+platforms = ["windows-x64",]

@@ -6,13 +6,13 @@ def update_stab_options(self, context):
     scene = bpy.context.scene
 
     if not preferences.enable_vertex_stab:
-        if scene.is_stab_active:
-            scene.is_stab_active = not scene.is_stab_active
-        scene.stabilize_on_prop = '3D_CURSOR'
+        if scene.stab_props.is_stab_active:
+            scene.stab_props.is_stab_active = not scene.stab_props.is_stab_active
+        scene.stab_props.stabilize_on_prop = '3D_CURSOR'
 
 
 class STAB_OT_SaveHotkey(bpy.types.Operator):
-    bl_idname = "stab.save_hotkey"
+    bl_idname = "view3d.save_hotkey"
     bl_label = "Save Hotkey"
 
     def execute(self, context):
@@ -25,13 +25,13 @@ class STAB_OT_SaveHotkey(bpy.types.Operator):
             return {'CANCELLED'}
 
         keyconfigs_addon = bpy.context.window_manager.keyconfigs.addon
-        keymap = keyconfigs_addon.keymaps["3D View"] 
+        keymap = keyconfigs_addon.keymaps["3D View"]
 
-        keymap_item = keymap.keymap_items["stab.stabilize_toggle"]
+        keymap_item = keymap.keymap_items["view3d.stabilize_toggle"]
         keymap.keymap_items.remove(keymap_item)
 
         keymap_item = keymap.keymap_items.new(
-            idname="stab.stabilize_toggle", value='PRESS',
+            idname="view3d.stabilize_toggle", value='PRESS',
             type=preferences.stab_toggle_hotkey_key,
             shift=preferences.stab_toggle_hotkey_shift,
             ctrl=preferences.stab_toggle_hotkey_ctrl,
@@ -75,7 +75,7 @@ class STAB_Preferences(bpy.types.AddonPreferences):
         column.prop(self, 'stab_toggle_hotkey_shift', text='Shift')
         column.prop(self, 'stab_toggle_hotkey_ctrl', text='Ctrl')
         column.prop(self, 'stab_toggle_hotkey_alt', text='Alt')
-        row.operator("stab.save_hotkey")
+        row.operator("view3d.save_hotkey")
         layout.separator()
 
         layout.prop(self, "enable_vertex_stab")
@@ -94,7 +94,7 @@ def register():
     enum_items = event_rna.enum_items.keys()
     if preferences.stab_toggle_hotkey_key in enum_items:
         keymap.keymap_items.new(
-            idname="stab.stabilize_toggle", value='PRESS',
+            idname="view3d.stabilize_toggle", value='PRESS',
             type=preferences.stab_toggle_hotkey_key,
             shift=preferences.stab_toggle_hotkey_shift,
             ctrl=preferences.stab_toggle_hotkey_ctrl,
@@ -105,7 +105,7 @@ def register():
 def unregister():
     keyconfigs_addon = bpy.context.window_manager.keyconfigs.addon
     keymap = keyconfigs_addon.keymaps["3D View"]
-    keymap_item = keymap.keymap_items["stab.stabilize_toggle"]
+    keymap_item = keymap.keymap_items["view3d.stabilize_toggle"]
     keymap.keymap_items.remove(keymap_item)
 
     bpy.utils.unregister_class(STAB_Preferences)

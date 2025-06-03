@@ -37,5 +37,6 @@ You can download latest version from Blender Extensions platform and install it 
 https://extensions.blender.org/add-ons/viewport-stabilizer/
 
 ### Manual
-Download .zip archive from the link above, unarchive it and move all the files to the next folder
-C:\Users\<Username>\AppData\Roaming\Blender Foundation\Blender\<blender version>\extensions\user_default\Viewport_stabilizer
+Download .zip archive from the link above, unarchive it and move all the files to the next folder:
+
+C:\Users\\\<Username>\AppData\Roaming\Blender Foundation\Blender\\\<blender version>\extensions\user_default\Viewport_stabilizer

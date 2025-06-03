@@ -15,23 +15,22 @@ class STAB_PT_stabilization_main_panel(bpy.types.Panel):
         layout = self.layout
         scene = context.scene
         layout.operator(
-            "stab.stabilize_toggle",
-            text="Enable viewport stabilization" if not scene.is_stab_active
+            "view3d.stabilize_toggle",
+            text="Enable viewport stabilization" if not scene.stab_props.is_stab_active
             else "Disable viewport stabilization",
             icon='CON_TRACKTO')
 
-        scene = context.scene
         layout.label(text="Stabilise on:")
-        layout.prop(scene, "stabilize_on_prop", text="")
-        if context.scene.stabilize_on_prop == 'OBJ_SPECIFIED':
-            layout.operator("stab.apply_selection")
+        layout.prop(scene.stab_props, "stabilize_on_prop", text="")
+        if context.scene.stab_props.stabilize_on_prop == 'OBJ_SPECIFIED':
+            layout.operator("view3d.apply_selection")
         layout.separator()
-        layout.operator("stab.create_object_center")
-        layout.operator("stab.create_vertices_center")
+        layout.operator("view3d.create_object_center")
+        layout.operator("view3d.create_vertices_center")
 
 
 class STAB_OT_create_object_center(bpy.types.Operator):
-    bl_idname = "stab.create_object_center"
+    bl_idname = "view3d.create_object_center"
     bl_label = "Find Object center"
     bl_description = ("Creates an Empty in the center of mass and "
                       "parents it to the active Object")
@@ -58,7 +57,7 @@ class STAB_OT_create_object_center(bpy.types.Operator):
 
 
 class STAB_OT_create_vertices_center(bpy.types.Operator):
-    bl_idname = "stab.create_vertices_center"
+    bl_idname = "view3d.create_vertices_center"
     bl_label = "Find Vertices center"
     bl_description = ("Creates an Empty in the middle of selected "
                       "vertices and parents it to the Object")
